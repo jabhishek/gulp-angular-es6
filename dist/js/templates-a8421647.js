@@ -1,0 +1,1 @@
+angular.module("metaConfigConsole").run(["$templateCache",function(n){n.put("main/main.html",'<div class="section">\r\n    {{ mainVm.message }}\r\n</div>')}]);
