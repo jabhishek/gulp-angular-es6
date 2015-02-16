@@ -34,12 +34,11 @@ var vendorScripts = ['angular/angular.js',
 //  browser-polyfill for es6
 vendorScripts.splice(vendorScripts.length, 0, path.join('./node_modules', '6to5/browser-polyfill.js'));
 
-console.log(vendorScripts);
-
-var appScripts = ['client/app/**/*.js', '!client/app/**/*spec.js'];
+var es6Scripts = ['client/app/**/*.js', '!client/app/**/*spec.js', '!client/app/es5/**/*.js'];
+var es5Scripts = ['client/app/es5/**/*.js', '!client/app/es5/**/*spec.js'];
 
 gulp.task('jshint', function () {
-	return gulp.src(appScripts)
+	return gulp.src(es6Scripts)
 		.pipe($gulp.jshint())
 		.pipe($gulp.jshint.reporter('default'));
 
@@ -73,11 +72,16 @@ gulp.task('vendors:js', function () {
 		.pipe($gulp.size({showFiles: true}));
 });
 
-gulp.task('js', ['jshint'], function () {
-	return gulp.src(appScripts)
+gulp.task("6to5", ['jshint'], function() {
+	return gulp.src(es6Scripts)
 		.pipe(to5({
 			experimental: true
 		}))
+		.pipe(gulp.dest('client/app/es5/'));
+});
+
+gulp.task('js', ['6to5'], function () {
+	return gulp.src(es5Scripts)
 		.pipe(ngAnnotate())
 		.pipe($gulp.concat('app.min.js'))
 		.pipe(gulp.dest('compiled/js/'))
@@ -101,7 +105,7 @@ gulp.task('server:start', ['html'], function() {
 // restart server if app.js changed
 gulp.task('watch', function () {
 	gulp.watch([ 'server/**/*.js'], ['server:restart']);
-	gulp.watch([ 'client/app/**/*.js' ], ['js']);
+	gulp.watch(es6Scripts, ['js']);
 	gulp.watch([ 'client/app/**/*.less' ], ['css']);
 	gulp.watch([ 'client/app/**/*.html' ], ['templates']);
 	gulp.watch([ 'client/*.html' ], ['html']);

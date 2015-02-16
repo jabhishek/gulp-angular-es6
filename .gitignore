@@ -3,3 +3,4 @@ client/bower_components
 .idea
 node_modules
 compiled
+client/app/es5

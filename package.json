@@ -36,6 +36,7 @@
     "gulp-livereload": "^3.4.0",
     "gulp-traceur": "^0.16.0",
     "gulp-6to5": "^3.0.0",
-    "6to5": "^3.5.3"
+    "6to5": "^3.5.3",
+    "gulp-using": "0.0.1"
   }
 }
