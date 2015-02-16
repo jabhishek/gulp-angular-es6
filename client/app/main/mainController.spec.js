@@ -8,7 +8,7 @@ describe("MainController", function () {
 		$controller = _$controller_;
 	}));
 
-	it('showAdminView should be true if admin logged in', function () {
+	it('should be defined', function () {
 		MainCtrl = $controller('MainController');
 		expect(MainCtrl).toBeDefined();
 	});
