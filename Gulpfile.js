@@ -28,10 +28,13 @@ var vendorScripts = ['angular/angular.js',
 	'angular-cookies/angular-cookies.js',
 	'angular-aria/angular-aria.js',
 	'hammerjs/hammer.js',
-	// es6 polyfill
-	'browser-polyfill.js',
 	'angular-material/angular-material.js']
 	.map(prependBowerPath);
+
+//  browser-polyfill for es6
+vendorScripts.splice(vendorScripts.length, 0, path.join('./node_modules', '6to5/browser-polyfill.js'));
+
+console.log(vendorScripts);
 
 var appScripts = ['client/app/**/*.js', '!client/app/**/*spec.js'];
 
