@@ -1,9 +1,10 @@
 
 (function (app) {
+	'use strict';
 	var _message = Symbol('message');
 	class MainController {
 		constructor() {
-			this[_message] = 'Hello ES6';
+			this[_message] = 'Hello ES6!!';
 		}
 
 		get message() {

@@ -1,4 +1,5 @@
 (function () {
+	'use strict';
 	angular.module('angularApp', ['ui.router', 'ngMaterial'])
 		.config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
 			$stateProvider

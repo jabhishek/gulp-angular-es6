@@ -42,39 +42,18 @@ gulp.task('jshint', function () {
 
 });
 
-gulp.task('clean:jsTemplates', function () {
-	return gulp.src(['./compiled/js/templates*'], {read: false})
-		.pipe($gulp.rimraf());
-});
-
-gulp.task('clean:jsApp', function () {
-	return gulp.src(['./compiled/js/app*'], {read: false})
-		.pipe($gulp.rimraf());
-});
-gulp.task('clean:jsVendors', function () {
-	return gulp.src(['./compiled/js/vendors*'], {read: false})
-		.pipe($gulp.rimraf());
-});
-gulp.task('clean:cssApp', function () {
-	return gulp.src(['./compiled/css/app*'], {read: false})
-		.pipe($gulp.rimraf());
-});
-gulp.task('clean:cssVendors', function () {
-	return gulp.src(['./compiled/css/vendors*'], {read: false})
-		.pipe($gulp.rimraf());
-});
 gulp.task('clean:dist', function () {
 	return gulp.src(['./dist/**/*'], {read: false})
 		.pipe($gulp.rimraf());
 });
-gulp.task('vendors:css', ['clean:cssVendors'], function () {
+gulp.task('vendors:css', function () {
 	return gulp.src(vendorStyles)
 		.pipe($gulp.concat('vendors.min.css'))
 		.pipe(minify())
 		.pipe(gulp.dest('compiled/css/'))
 		.pipe($gulp.size({showFiles: true}));
 });
-gulp.task('css', ['clean:cssApp'], function () {
+gulp.task('css', function () {
 	return gulp.src(['client/app/styles/app.less'])
 		.pipe($gulp.less())
 		.pipe($gulp.autoprefixer())
@@ -83,7 +62,7 @@ gulp.task('css', ['clean:cssApp'], function () {
 		.pipe($gulp.size({showFiles: true}));
 });
 
-gulp.task('vendors:js', ['clean:jsVendors'], function () {
+gulp.task('vendors:js', function () {
 	return gulp.src(vendorScripts)
 		.pipe($gulp.uglify())
 		.pipe($gulp.concat('vendors.min.js'))
@@ -91,7 +70,7 @@ gulp.task('vendors:js', ['clean:jsVendors'], function () {
 		.pipe($gulp.size({showFiles: true}));
 });
 
-gulp.task('js', ['clean:jsApp', 'jshint'], function () {
+gulp.task('js', ['jshint'], function () {
 	return gulp.src(appScripts)
 		.pipe(to5({
 			experimental: true
@@ -102,7 +81,7 @@ gulp.task('js', ['clean:jsApp', 'jshint'], function () {
 		.pipe($gulp.size({showFiles: true}));
 });
 
-gulp.task('templates', ['clean:jsTemplates'], function () {
+gulp.task('templates', function () {
 	return gulp.src('client/app/**/*.html')
 		.pipe(templateCache({ module: 'angularApp' }))
 		.pipe(ngAnnotate())
