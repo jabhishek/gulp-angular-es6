@@ -11,6 +11,8 @@ var server = require('gulp-develop-server');
 var ngAnnotate = require('gulp-ng-annotate');
 var runSequence = require('run-sequence');
 
+var to5 = require("gulp-6to5");
+
 var prependBowerPath = function (packageName) {
 	return path.join('./client/bower_components/', packageName);
 };
@@ -26,6 +28,8 @@ var vendorScripts = ['angular/angular.js',
 	'angular-cookies/angular-cookies.js',
 	'angular-aria/angular-aria.js',
 	'hammerjs/hammer.js',
+	// es6 polyfill
+	'browser-polyfill.js',
 	'angular-material/angular-material.js']
 	.map(prependBowerPath);
 
@@ -89,6 +93,9 @@ gulp.task('vendors:js', ['clean:jsVendors'], function () {
 
 gulp.task('js', ['clean:jsApp', 'jshint'], function () {
 	return gulp.src(appScripts)
+		.pipe(to5({
+			experimental: true
+		}))
 		.pipe(ngAnnotate())
 		.pipe($gulp.concat('app.min.js'))
 		.pipe(gulp.dest('compiled/js/'))

@@ -33,6 +33,9 @@
     "gulp-inject": "^1.1.1",
     "gulp-rev": "^3.0.0",
     "gulp-htmlmin": "^1.0.0",
-    "gulp-livereload": "^3.4.0"
+    "gulp-livereload": "^3.4.0",
+    "gulp-traceur": "^0.16.0",
+    "gulp-6to5": "^3.0.0",
+    "6to5": "^3.5.3"
   }
 }
